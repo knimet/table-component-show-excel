@@ -1,10 +1,10 @@
-﻿var Table = React.createClass({
+var Table = React.createClass({
   	getInitialState: function() {
 		var targetURL= this.props.targetURL;
 		return {
 			targetURL:targetURL,
 			header:[],
-      			records:[]
+      		records:[]
 			};
 			
 	},
@@ -52,6 +52,16 @@
 			alert(xmlhttp.responseText);	
 		}
 	},
+    addRecord:function(){
+        var header = this.state.header;
+        var record = [];
+        for(var i = 0;i<header.length;i++){
+            record[record.length] = "";
+        }
+        var records = this.state.records;
+        records[records.length] = record;
+        this.setState({records:records});
+    },
  
 	render: function() {
 		var rows = [];
@@ -61,7 +71,9 @@
 		}
 		return (
 			<div>
-				<button onClick={this.submitTable}>submit table</button>
+				<button onClick={this.submitTable} className="submit-button">submit table</button>
+                <button onClick={this.addRecord} className="submit-button">add Record</button>
+                <button onClick={this.submitTable} className="submit-button">delete Record</button>
 				<table>
 					<TableHeader header={this.state.header}/>
 					{
